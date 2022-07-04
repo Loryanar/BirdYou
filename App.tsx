@@ -8,8 +8,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Register from './views/registerScreen';
 import Login from './views/loginScreen';
 
+export type List = {
+  Register: undefined;
+  Login: undefined;
+};
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<List>();
 
 function MyStack() { 
   
@@ -18,23 +22,18 @@ function MyStack() {
     <Stack.Navigator  
     
     initialRouteName="Login"
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: "#621FF7",
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-    }}>
+   >
       
-      <Stack.Screen name="Login"
+      
+      <Stack.Screen 
+        name="Login"
         component={Login}
-        options={{ title: "Login" }}
+       
         />  
+      
         <Stack.Screen name="Register"
         component={Register}
-        options={{ title: "Register" }}
+        
         />
        
     </Stack.Navigator>

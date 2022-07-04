@@ -1,8 +1,9 @@
 import React ,{useState} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
 import { useNavigation } from "@react-navigation/native";
-import { AsyncStorage } from 'react-native'
-import Register from './registerScreen';
+import * as login from '../utils/utilsUser'
+import { StackNavigationProp } from '@react-navigation/stack';
+import { List } from '../App';
  const Login =()=>{
     const [state,setState]= useState({
         Username:'',
@@ -13,55 +14,15 @@ import Register from './registerScreen';
     const ChangeText=(name: string, value: string)=>{
        setState({...state, [name]: value})
     }
-
-    const asyncStorageExamples = async () => {
-        
-        // getting an items
-         try{ 
-             const val = await AsyncStorage.getItem('key');
-          if (val !== null) {
-            // We have data!!
-            console.log(val);
-          }
-        } catch (error) {
-          console.log(error)
-        }
-        }
+    const data ={
+        "Username":state.Username, 
+            "Password":state.Password
+    }
+    
          
-        const log= ()=>{
-            fetch('https://restapi-twitterclone1.herokuapp.com/log',{
-                method: 'POST',
-                headers: new Headers({
-     
-                  'Content-Type': 'application/json'
-                   }),
-                body: JSON.stringify(
-                    {
-                  "Username":state.Username, 
-                  
-                  "Password":state.Password
-                   })
-                }).then(function (response) {
-                   
-                   return response.json();
-                 
-                }).then(function (result) { 
-                  // console.log(result);
-                  if(!result.error){
-                   asyncStorageExamples(result),
-                   alert("User register successfully ");
-                   console.log('wii');
-               }else{
-               alert(result.error_msg);
-                console.log(result);
-          }
-       }).catch(function (error) {
-          console.log("-------- error ------- "+error);
-          alert("result:"+error)
-        });
-        }
-
-    const navigation = useNavigation();
+        
+  type nav= StackNavigationProp<List,'Register'>        
+    const navigation = useNavigation<nav>();
     return(
          
         <ScrollView style={styles.container}>
@@ -85,18 +46,18 @@ import Register from './registerScreen';
               </View>
         
               <View >
-                <Button title="Login"  onPress={()=> log()}/>
+                <Button title="Login"  onPress={()=> login.log(data)}/>
               </View>
 
 <View style={styles.cv}> 
               <TouchableOpacity
-          placeholder='Sing up here'
+       
           onPress={() =>
-            navigation.navigate(Register)
-          }
+          navigation.navigate('Register')
+        }
         >
             <Text style={styles.buton}>
-                Regist here
+                Sing up here
             </Text>
         </TouchableOpacity>
         </View>

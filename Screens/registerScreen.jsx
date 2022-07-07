@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button} from 'react-native'; 
-import * as utilsUser from '../utils/utilsUser'
+import { StackNavigationProp } from '@react-navigation/stack';
+import { List } from '../App';
+import axios from "axios";
+import * as url from '../text';
+import { useNavigation } from "@react-navigation/native";
 
-const Register =()=>{
-
+export default function Register(navigator){
+          
+   
 const [state,setState]= useState({
              Username:'',
              Name:'',
@@ -12,7 +17,7 @@ const [state,setState]= useState({
              Password:'' 
 
          })  
-         const ChangeText=(name: string, value: string)=>{
+         const ChangeText=(name, value)=>{
             setState({...state, [name]: value})
          }
 
@@ -22,7 +27,22 @@ const [state,setState]= useState({
             "Lastname":state.Lastname,
             "Password":state.Password
     }
- 
+    function reg(data){
+       
+
+
+        axios.post(url.url+'registro', data)
+                .then(async (response) => {
+                    console.log(response.data);
+                    console.log('wiiu');
+                    navigator.navigate('Perfil');
+                })
+                .catch(error => {
+                    
+                    console.log("-------- error ------- "+error);
+                    alert("result:"+error)
+                });
+        }
     
          
          return(
@@ -34,7 +54,6 @@ const [state,setState]= useState({
         <TextInput
           placeholder="Username"
            onChangeText={(value) => ChangeText("Username", value) }
-         
         />
       </View>
 
@@ -51,10 +70,7 @@ const [state,setState]= useState({
           onChangeText={(value) => ChangeText('Lastname',value) }
         />
       </View>
-      
-     
-
-     
+    
       <View style={styles.inputGroup}>
         <TextInput
           placeholder="Password"
@@ -64,11 +80,9 @@ const [state,setState]= useState({
       </View>
 
       <View >
-        <Button title="SIGN UP" onPress={()=> utilsUser.reg(data)} />
+        <Button title="SIGN UP" onPress={()=> reg(data)} />
       </View>
     </ScrollView>
-  
-        
      );
  }
  const styles = StyleSheet.create({
@@ -93,4 +107,3 @@ const [state,setState]= useState({
       justifyContent: "center",
     },
   });
- export default Register;

@@ -1,28 +1,50 @@
 import React ,{useState} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
 import { useNavigation } from "@react-navigation/native";
-import * as login from '../utils/utilsUser'
 import { StackNavigationProp } from '@react-navigation/stack';
-import { List } from '../App';
- const Login =()=>{
+import axios from "axios";
+import * as url from '../text';
+ 
+export default function Login({navigation}){
     const [state,setState]= useState({
         Username:'',
         
         Password:'' 
 
     })  
-    const ChangeText=(name: string, value: string)=>{
+    const ChangeText=(name, value)=>{
        setState({...state, [name]: value})
     }
     const data ={
         "Username":state.Username, 
-            "Password":state.Password
+        "Password":state.Password
     }
     
-         
+    function log(data){
+    
+           
+
+    axios.post(url.url+'log', data)
+      .then(async (response) => {
+      console.log(response.data);
+      console.log('wiiu');
+       localStorage.setItem('token',response.data.token)
+     navigation.navigate('Perfil')
+  
+   
+})
+.catch(error => {
+    
+    console.log("-------- error ------- "+error);
+    alert("result:"+error);
+   
+});
+
+
+}
         
-  type nav= StackNavigationProp<List,'Register'>        
-    const navigation = useNavigation<nav>();
+   
+    
     return(
          
         <ScrollView style={styles.container}>
@@ -30,39 +52,27 @@ import { List } from '../App';
               <View style={styles.inputGroup}>
                 <TextInput
                   placeholder="Username"
-                  onChangeText={(value) => ChangeText("Username", value)}
-                 
+                  onChangeText={(value) => ChangeText("Username", value)} 
                 />
               </View>
-        
-              
               <View style={styles.inputGroup}>
                 <TextInput
-                  placeholder="Password"
-                  onChangeText={(value) => ChangeText('Password',value) }
-                  secureTextEntry={true}
-                 
+                  placeholder="Password"  onChangeText={(value) => ChangeText('Password',value) } secureTextEntry={true}
                 />
               </View>
         
               <View >
-                <Button title="Login"  onPress={()=> login.log(data)}/>
+                <Button title="Login"  
+                onPress={()=> log(data) }/>
               </View>
 
 <View style={styles.cv}> 
-              <TouchableOpacity
-       
-          onPress={() =>
-          navigation.navigate('Register')
-        }
-        >
+              <TouchableOpacity onPress={() => navigation.navigate('Register') }>
             <Text style={styles.buton}>
                 Sing up here
             </Text>
         </TouchableOpacity>
         </View>
-
-
             </ScrollView>
         
              );
@@ -97,4 +107,3 @@ import { List } from '../App';
                 padding: 18,
             }
           });
- export default Login

@@ -6,29 +6,44 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
-export default  function MyPosts() {
+export default  function OPosts({datos}) {
     const [posts, setPosts] = useState([]);
     const [flag,setFlag] = useState(4)
     const[likes, setLikes]= useState()
+    const [flag2,setFlag2] = useState()
+   
  
+
  const navigation= useNavigation();
    useEffect(()=> {
     
-  cargar()
+
    })
    function cargar(){
-    if (flag<=5) {
-        po()
+    if (flag<=5 && flag2==true) {
+        Posts(datos.username)
+        setFlag2(false)
         return setFlag(flag+1)
+
+
     }
 }
 
 
-    const po =  async ()=>{
+ function Carga(){if (flag2==true) {
+    Posts(datos.username)
+    setFlag2(false)
+  
+
+
+}
+ }
+
+  function Posts(username){
          try {
            
 
-        fetch(url.url+"posts/0",{
+        fetch(url.url+"posts/"+username,{
             method: 'GET',
             headers: new Headers({
                 'authorization': localStorage.getItem("token"),
@@ -140,7 +155,11 @@ const  url2=id
             <Text>Delete</Text>
             
           </TouchableOpacity>
-          <Text></Text>
+          
+          <TouchableOpacity onPress={()=>{del(like(item.idpost))}}>
+            <Text>Like</Text>
+            
+          </TouchableOpacity>
                 </View>
                 
             </View>

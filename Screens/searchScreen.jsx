@@ -3,40 +3,32 @@ import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} fro
 import * as url from '../text'
 import { useNavigation } from "@react-navigation/native";
 import { Card, Avatar, Image } from "react-native-elements";
-import Post from '../Components/Post';
-import MyPost from '../Components/MyPost';
-import Tabs from '../Components/Tabs';
+import Tabs from '../Components/Tabs'
+import OPosts from '../Components/OtherPosts';
 
 
-const Perfil = () => {
-    useEffect(() => {
-      cargar()
-      })
-const [flag,setFlag] = useState(true)
-    const [state,setState]= useState({
-        data:''
 
-    })  
-       const ChangeText=(name, value)=>{
-       setState({...state, [name]: value})
+
+const Search = () => {
+    
+    const datos={
+        "flag2":true,
+        "username":username
     }
+const [username,setUsername] = useState()
+    
+       
 
 const navigation= useNavigation()
-   
-    function cargar(){
-        if (flag==true) {
-            infoPerfil()
-            return setFlag(false)
-        }
-    }
+  
 
     
    
 
-    const infoPerfil = async() => {
+    function bucarPerfil() {
 
         try {
-           await fetch(url.url+"perfil" ,{
+            fetch(url.url+"perfil/"+username ,{
       
                     method: 'GET',
                     headers: new Headers({
@@ -45,12 +37,10 @@ const navigation= useNavigation()
       
                 }).then(function (response) {
                let data1=response.json()
-                   
+                   console.log(data1)
                     return data1
                                    }).then(data1=>{
-                    let data =data1.usuario;
-                   ChangeText("data", data)
-                    return data
+                   
                 })
         } catch (error) {
       
@@ -62,27 +52,19 @@ const navigation= useNavigation()
 
     return(       
         <ScrollView style={styles.container}>
-<Card>
-<Text style={styles.titulo}>
-                    {state.data.username}
-                </Text>
+               <View><Tabs/></View>
  <View >
-                <Text style={styles.infoPerfil}>
-                  {state.data.nombre} {state.data.apellido}
-                </Text>
-                <Text style={styles.infoPerfil}>
-                   
-                </Text>
-                
-                <View style={styles.button1}>              
-    <Button title="Editar Perfil" onPress={()=> navigation.navigate('UpPerfil')} />
+        <TextInput
+          placeholder="Username"
+           onChangeText={(value) => setUsername(value) }
+        />
+      </View>
+
+      
+      <View style={styles.button1}>              
+    <Button title="Buscar" onPress={()=>bucarPerfil()} />
     </View>
-    </View>
-  
-</Card>
-<MyPost/>
-         <View><Tabs/></View>
-                 
+              <OPosts username={datos} />   
         </ScrollView>
     );
 
@@ -147,4 +129,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Perfil
+export default Search

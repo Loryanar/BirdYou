@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button} from 'react-native'; 
 import * as url from '../../text'
 import { useNavigation } from "@react-navigation/native";
+import Tabs from '../../Components/Tabs';
 
 const logout = () => {
 
@@ -138,7 +139,10 @@ const update = () =>{
                     <Button title="Log out"  onPress={() => logout()}/>
                 </View>
             </View>
-    </ScrollView>);
+            <View><Tabs/></View>
+            
+    </ScrollView>
+    );
  }
  const styles = StyleSheet.create({
     container: {

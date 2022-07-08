@@ -1,12 +1,44 @@
 import React ,{useState, useEffect} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
-import Tabs from '../Components/Tabs'
 import { useNavigation } from "@react-navigation/native";
 import Post from '../components/Post'
-import { Card, Avatar, Image } from "react-native-elements";
 
-export default function Perfil({navigation}){
+
+const Perfil = (props) => {
+    let {username, apellido, descripcion, email, nombre, resultPost} = props.route.params
+    const [state, setState] = useState({
+        Username: '',
+        Name: '',
+        Lastname: '',
+        Email: '',
+        Description: ''
+    })
+    const [posts, setPosts]= useState(null)
+
+    useEffect( () => {
+        if (!(state.Username == username &&
+            state.Name == nombre &&
+            state.Lastname == apellido &&
+            state.Email == email &&
+            state.Description == descripcion)) {
+
+                setState({
+                    Username: username,
+                    Name: nombre,
+                    Lastname: apellido,
+                    Email: email,
+                    Description: descripcion
+                })
+            
+        }
+
+        if (!(posts == resultPost)) {
+
+            setPosts(resultPost)
+            
+        }
     
+    })
 
 
 
@@ -16,18 +48,47 @@ export default function Perfil({navigation}){
     
     
     return(       
-        
-       
-       <ScrollView style={styles.container}>
-<Card
-  title='HELLO WORLD'>
- <View style={styles.button2}>
+        <ScrollView style={styles.container}>
+<Post/>
+            <View style={styles.contentPerfil}>
+
+                <Text style={styles.titulo}>
+                    {state.Username}
+                </Text>
+                <Text style={styles.infoPerfil}>
+                    {state.Name} {state.Lastname}
+                </Text>
+                <Text style={styles.infoPerfil}>
+                    {state.Email}
+                </Text>
+                <View style={styles.infoPerfilbio}>
+
+                    <Text style={styles.infoPerfil} >
+                        {state.Description}
+                    </Text>
+
+                </View>
+
+            
+                <View style={styles.contentButton}>
+                  
+                    <View style={styles.button2}>
                         
-    <Button title="Editar Perfil"  />
-    </View>
-  
-</Card>
-           <Tabs/>
+                        <Button title="Editar Perfil"  onPress={() => {props.navigation.navigate('Update',{
+                            apellido: apellido, 
+                            descripcion: descripcion, 
+                            email: email, 
+                            nombre: nombre
+                        })}}/>
+                    </View>
+                </View>
+
+                <View style={styles.button}>
+                    <Button title="Log out" />
+                </View>
+            </View>
+            
+                  
         </ScrollView>
     );
 
@@ -37,9 +98,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 35,
-    },
-    card:{
-        
     },
     button: {
         color: 'blue',
@@ -95,3 +153,4 @@ const styles = StyleSheet.create({
     }
 });
 
+export default Perfil

@@ -6,9 +6,9 @@ import axios from "axios";
 import * as url from '../text';
 import { useNavigation } from "@react-navigation/native";
 
-export default function Register(navigator){
+export default function Register(navigation){
           
-   
+    const navigation = useNavigation();
 const [state,setState]= useState({
              Username:'',
              Name:'',
@@ -35,7 +35,7 @@ const [state,setState]= useState({
                 .then(async (response) => {
                     console.log(response.data);
                     console.log('wiiu');
-                    navigator.navigate('Perfil');
+                    navigation.navigate('Perfil');
                 })
                 .catch(error => {
                     

@@ -10,7 +10,7 @@ export default function Navigator(){
 return(
 <Stack.Navigator  
     
-    initialRouteName="Perfil"
+    initialRouteName="Login"
    >
       
       
@@ -21,7 +21,7 @@ return(
         />  
         <Stack.Screen name="Perfil"
         component={Perfil}
-       
+        options={{ title: "Perfil" }}
       />
         <Stack.Screen name="Register"
         component={Register}
@@ -29,6 +29,5 @@ return(
         />
        
     </Stack.Navigator>
-    
 )
 }

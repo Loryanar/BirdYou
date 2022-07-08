@@ -1,93 +1,87 @@
 import React ,{useState, useEffect} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
+import * as url from '../text'
 import { useNavigation } from "@react-navigation/native";
-import Post from '../components/Post'
+import { Card, Avatar, Image } from "react-native-elements";
+import Post from '../Components/Post';
+import MyPost from '../Components/MyPost';
 
 
-const Perfil = (props) => {
-    let {username, apellido, descripcion, email, nombre, resultPost} = props.route.params
-    const [state, setState] = useState({
-        Username: '',
-        Name: '',
-        Lastname: '',
-        Email: '',
-        Description: ''
-    })
-    const [posts, setPosts]= useState(null)
+const Perfil = () => {
+    useEffect(() => {
+      cargar()
+      })
+const [flag,setFlag] = useState(true)
+    const [state,setState]= useState({
+        data:''
 
-    useEffect( () => {
-        if (!(state.Username == username &&
-            state.Name == nombre &&
-            state.Lastname == apellido &&
-            state.Email == email &&
-            state.Description == descripcion)) {
+    })  
+       const ChangeText=(name, value)=>{
+       setState({...state, [name]: value})
+    }
 
-                setState({
-                    Username: username,
-                    Name: nombre,
-                    Lastname: apellido,
-                    Email: email,
-                    Description: descripcion
+const navigation= useNavigation()
+   
+    function cargar(){
+        if (flag==true) {
+            infoPerfil()
+            return setFlag(false)
+        }
+    }
+
+    
+   
+
+    const infoPerfil = async() => {
+
+        try {
+           await fetch(url.url+"perfil" ,{
+      
+                    method: 'GET',
+                    headers: new Headers({
+                        'authorization': localStorage.getItem("token"),
+                    })
+      
+                }).then(function (response) {
+               let data1=response.json()
+                    console.log(data1)
+                    return data1
+                                   }).then(data1=>{
+                    let data =data1.usuario;
+                   ChangeText("data", data)
+                    return data
                 })
-            
+        } catch (error) {
+      
+            console.error(error);    
+      
         }
+        
+    }
 
-        if (!(posts == resultPost)) {
-
-            setPosts(resultPost)
-            
-        }
-    
-    })
-
-
-
-
-    
-
-    
-    
     return(       
         <ScrollView style={styles.container}>
-<Post/>
-            <View style={styles.contentPerfil}>
-
-                <Text style={styles.titulo}>
-                    {state.Username}
+<Card>
+<Text style={styles.titulo}>
+                    {state.data.username}
+                </Text>
+ <View >
+                <Text style={styles.infoPerfil}>
+                  {state.data.nombre} {state.data.apellido}
                 </Text>
                 <Text style={styles.infoPerfil}>
-                    {state.Name} {state.Lastname}
+                   
                 </Text>
-                <Text style={styles.infoPerfil}>
-                    {state.Email}
-                </Text>
-                <View style={styles.infoPerfilbio}>
+                
+                <View style={styles.button1}>              
+    <Button title="Editar Perfil" onPress={()=> navigation.navigate('UpPerfil')} />
+    </View>
+    </View>
+  
+</Card>
 
-                    <Text style={styles.infoPerfil} >
-                        {state.Description}
-                    </Text>
-
-                </View>
-
-            
-                <View style={styles.contentButton}>
-                  
-                    <View style={styles.button2}>
-                        
-                        <Button title="Editar Perfil"  onPress={() => {props.navigation.navigate('Update',{
-                            apellido: apellido, 
-                            descripcion: descripcion, 
-                            email: email, 
-                            nombre: nombre
-                        })}}/>
-                    </View>
-                </View>
-
-                <View style={styles.button}>
-                    <Button title="Log out" />
-                </View>
-            </View>
-            
+            <MyPost/>
+         
                   
         </ScrollView>
     );
@@ -114,7 +108,7 @@ const styles = StyleSheet.create({
         color: 'blue',
         marginRight: 3,
         marginVertical: 1,
-        width: "49%"
+        width: "30%"
     },
     button2: {
         color: 'blue',

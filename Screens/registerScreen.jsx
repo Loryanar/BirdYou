@@ -6,9 +6,9 @@ import axios from "axios";
 import * as url from '../text';
 import { useNavigation } from "@react-navigation/native";
 
-export default function Register(navigation){
-          
-    const navigation = useNavigation();
+export default function Register(){
+          const navigation=  useNavigation()
+   
 const [state,setState]= useState({
              Username:'',
              Name:'',

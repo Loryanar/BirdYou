@@ -2,7 +2,6 @@ import React ,{useState} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from '@react-navigation/stack';
-import { List } from '../App';
 import axios from "axios";
 import * as url from '../text';
  
@@ -22,22 +21,23 @@ export default function Login({navigation}){
     }
     
     function log(data){
-      var op=false
+    
            
 
-    axios.post(url+'log', data)
+    axios.post(url.url+'log', data)
       .then(async (response) => {
       console.log(response.data);
       console.log('wiiu');
        localStorage.setItem('token',response.data.token)
      navigation.navigate('Perfil')
-    return op=true
+  
    
 })
 .catch(error => {
     
     console.log("-------- error ------- "+error);
     alert("result:"+error);
+  
    
 });
 

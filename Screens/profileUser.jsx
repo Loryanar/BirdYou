@@ -94,11 +94,7 @@ const styles = StyleSheet.create({
       flex: 1,
       padding: 35,
     },
-    button: {
-        color: 'blue',
-        marginHorizontal: 5,
-        marginVertical: 1
-    },
+   
     contentButton: {
         flex: 2,
         flexDirection: 'row',
@@ -106,7 +102,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5
     },
     button1: {
-        color: 'blue',
+        color: '#839192',
         marginRight: 3,
         marginVertical: 1,
         width: "30%"

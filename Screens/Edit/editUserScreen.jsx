@@ -20,8 +20,7 @@ const logout = () => {
                 if (response.status == 200) {
                  localStorage.removeItem("token")
                  console.log(response.json());
-                    return response.json();  
-                    
+                   
                 }
 
                 return null

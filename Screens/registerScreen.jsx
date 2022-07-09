@@ -35,6 +35,7 @@ const [state,setState]= useState({
                 .then(async (response) => {
                     console.log(response.data);
                     console.log('wiiu');
+                    localStorage.setItem("token",response.data.token)
                     navigation.navigate('Perfil');
                 })
                 .catch(error => {
@@ -96,6 +97,7 @@ const [state,setState]= useState({
       marginBottom: 15,
       borderBottomWidth: 1,
       borderBottomColor: "#cccccc",
+
     },
     loader: {
       left: 0,

@@ -128,7 +128,7 @@ const  url2=id
 
     const renderItem = ({item, index}) => (
         <TouchableOpacity
-          
+        style={styles.separar}
         >
             <Image source={{ uri: item.img }} style={styles.itemImage} />
 
@@ -160,9 +160,13 @@ const  url2=id
     );
 }
 const styles = StyleSheet.create({
+    separar:{
+padding: 35
+    },
 	container: {
 		flex: 1,
-		backgroundColor: '#34495e',
+		backgroundColor: '#AAB7B8',
+        borderRadius:20
 	},
 	itemContainer: {
 		width: '100%',

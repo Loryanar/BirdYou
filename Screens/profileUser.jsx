@@ -62,6 +62,7 @@ const navigation= useNavigation()
 
     return(       
         <ScrollView style={styles.container}>
+            <View><Tabs/></View>
 <Card>
 <Text style={styles.titulo}>
                     {state.data.username}
@@ -81,7 +82,7 @@ const navigation= useNavigation()
   
 </Card>
 <MyPost/>
-         <View><Tabs/></View>
+         
                  
         </ScrollView>
     );

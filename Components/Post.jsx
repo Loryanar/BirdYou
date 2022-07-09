@@ -2,12 +2,12 @@ import React, {useState,  useCallback,useEffect, Component} from 'react';
 import {Text,View,StyleSheet, TextInput, ScrollView,Button,TouchableOpacity} from 'react-native'; 
 import * as url from '../text'
 import * as ImagePicker from 'expo-image-picker';
-
- export default function Post(){
+import { useNavigation } from "@react-navigation/native";
+ export default function Post({}){
     
 let body= new FormData();
 
-
+const navigation=  useNavigation()
 
 
     const [singleFile, setSingleFile] = useState(null);
@@ -64,7 +64,9 @@ let body= new FormData();
                     body: body
                     }).then(function (response) {
                       if(response.status==200){
+                        navigation.goBack()
                         console.log("wii")
+
                       }
                          })
                  } catch (error) {

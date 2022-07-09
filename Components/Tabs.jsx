@@ -7,21 +7,22 @@ export default function Tabs({}) {
     
     <View style={styles.container}>
         
-        <TouchableOpacity
-            style={styles.button1}
-            >
-            <Text style={styles.buttonTextStyle}  >Home</Text>
-          </TouchableOpacity>
+        
       
     <TouchableOpacity
             style={styles.button1}
             >
-            <Text style={styles.buttonTextStyle} >Search</Text>
+            <Text style={styles.buttonTextStyle} onPress={()=>navigation.navigate("Search")} >Search</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button1}
             >
             <Text style={styles.buttonTextStyle} onPress={()=>navigation.navigate("Perfil")} >User</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button1}
+            >
+            <Text style={styles.buttonTextStyle} onPress={()=>navigation.navigate("Post")} >Post</Text>
           </TouchableOpacity>
       </View>
 

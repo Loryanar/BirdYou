@@ -7,9 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 
 
 export default  function OPosts({datos}) {
+ 
     const [posts, setPosts] = useState([]);
     const [flag,setFlag] = useState(4)
-    const[likes, setLikes]= useState()
+    
     const [flag2,setFlag2] = useState()
    
  
@@ -30,14 +31,8 @@ export default  function OPosts({datos}) {
 }
 
 
- function Carga(){if (flag2==true) {
-    Posts(datos.username)
-    setFlag2(false)
-  
+ 
 
-
-}
- }
 
   function Posts(username){
          try {
@@ -176,8 +171,8 @@ const  url2=id
             />
             
         </View>
-    );
-}
+    );}
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

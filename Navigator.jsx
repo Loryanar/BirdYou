@@ -5,6 +5,7 @@ import Login from './Screens/loginScreen';
 import Perfil from './Screens/profileUser';
 import UpPerfil from "./Screens/Edit/editUserScreen";
 import Search from './Screens/searchScreen';
+import Post from './Screens/Postear';
 
 const Stack= createStackNavigator()
 
@@ -12,13 +13,18 @@ export default function Navigator(){
 return(
 <Stack.Navigator  
     
-    initialRouteName="Search"
+    initialRouteName="Login"
    >
       
       
       <Stack.Screen 
         name="Login"
         component={Login}
+       
+        />  
+         <Stack.Screen 
+        name="Post"
+        component={Post}
        
         />  
         
